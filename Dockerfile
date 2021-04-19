@@ -14,6 +14,7 @@
 
 FROM registry.access.redhat.com/ubi8/nodejs-14
 
+RUN dnf update
 USER 0
 ADD . /tmp/src
 RUN chown -R 1001:0 /tmp/src
