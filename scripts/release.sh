@@ -4,27 +4,32 @@
 # prepare data
 #
 
-export GHE_TOKEN="$(cat ../git-token)"
-export COMMIT_SHA="$(cat /config/git-commit)"
-export APP_NAME="$(cat /config/app-name)"
+export GHE_TOKEN
+GHE_TOKEN="$(get_env git-token)"
+export COMMIT_SHA
+COMMIT_SHA="$(get_env git-commit)"
+export APP_NAME
+APP_NAME="$(get_env app-name)"
 
-INVENTORY_REPO="$(cat /config/inventory-url)"
+INVENTORY_REPO="$(get_env inventory-url)"
 GHE_ORG=${INVENTORY_REPO%/*}
 export GHE_ORG=${GHE_ORG##*/}
 GHE_REPO=${INVENTORY_REPO##*/}
 export GHE_REPO=${GHE_REPO%.git}
 
 set +e
-    REPOSITORY="$(cat /config/repository)"
-    TAG="$(cat /config/custom-image-tag)"
+    REPOSITORY="$(get_env repository)"
+    TAG="$(get_env custom-image-tag)"
 set -e
 
-export APP_REPO="$(cat /config/repository-url)"
+export APP_REPO
+APP_REPO="$(get_env repository-url)"
 APP_REPO_ORG=${APP_REPO%/*}
 export APP_REPO_ORG=${APP_REPO_ORG##*/}
 
 if [[ "${REPOSITORY}" ]]; then
-    export APP_REPO_NAME=$(basename $REPOSITORY .git)
+    export APP_REPO_NAME
+    APP_REPO_NAME=$(basename "$REPOSITORY" .git)
     APP_NAME=$APP_REPO_NAME
 else
     APP_REPO_NAME=${APP_REPO##*/}
@@ -33,8 +38,8 @@ fi
 
 ARTIFACT="https://raw.github.ibm.com/${APP_REPO_ORG}/${APP_REPO_NAME}/${COMMIT_SHA}/deployment.yml"
 
-IMAGE_ARTIFACT="$(cat /config/artifact)"
-SIGNATURE="$(cat /config/signature)"
+IMAGE_ARTIFACT="$(get_env artifact)"
+SIGNATURE="$(get_env signature)"
 if [[ "${TAG}" ]]; then
     APP_ARTIFACTS='{ "signature": "'${SIGNATURE}'", "provenance": "'${IMAGE_ARTIFACT}'", "tag": "'${TAG}'" }'
 else
@@ -50,7 +55,7 @@ cocoa inventory add \
     --commit-sha="${COMMIT_SHA}" \
     --build-number="${BUILD_NUMBER}" \
     --pipeline-run-id="${PIPELINE_RUN_ID}" \
-    --version="$(cat /config/version)" \
+    --version="$(get_env version)" \
     --name="${APP_REPO_NAME}_deployment"
 
 cocoa inventory add \
@@ -59,6 +64,6 @@ cocoa inventory add \
     --commit-sha="${COMMIT_SHA}" \
     --build-number="${BUILD_NUMBER}" \
     --pipeline-run-id="${PIPELINE_RUN_ID}" \
-    --version="$(cat /config/version)" \
+    --version="$(get_env version)" \
     --name="${APP_REPO_NAME}" \
     --app-artifacts="${APP_ARTIFACTS}"

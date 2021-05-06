@@ -18,7 +18,7 @@ metadata:
   namespace: $IBMCLOUD_IKS_CLUSTER_NAMESPACE
 type: kubernetes.io/dockerconfigjson
 data:
-  .dockerconfigjson: $(jq .parameters.docker_config_json /config/artifactory)
+  .dockerconfigjson: $(jq .parameters.docker_config_json "$(get_env artifactory)")
 EOF
   else
     kubectl create secret docker-registry \

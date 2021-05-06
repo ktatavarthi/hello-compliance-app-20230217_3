@@ -8,7 +8,7 @@ docker push "${IMAGE}"
 
 #optional tag
 set +e
-TAG="$(cat /config/custom-image-tag)"
+TAG="$(get_env custom-image-tag '')"
 set -e
 if [[ "${TAG}" ]]; then
     #see build_setup script
