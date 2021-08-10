@@ -30,7 +30,7 @@ echo -n "$IMAGE_TAG" > ../image-tags
 echo -n "$IMAGE" > ../image
 
 IMAGE_TAG_XRAY="eu.artifactory.swg-devops.com/wcp-compliance-automation-team-docker-local/$IMAGE_NAME"
-docker login wcp-compliance-automation-team-docker-local.artifactory.swg-devops.com -u cocoa@hu.ibm.com --password-stdin < /tmp/artifactory-token
+docker login wcp-compliance-automation-team-docker-local.artifactory.swg-devops.com -u "$(jq -r '.parameters.user_id' /config/artifactory)" --password-stdin "$(jq -r '.parameters.repository_url' /config/artifactory)"
 
 docker tag "$IMAGE" "$IMAGE_TAG_XRAY"
 docker push "$IMAGE_TAG_XRAY"
