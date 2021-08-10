@@ -41,7 +41,7 @@ jq -j --arg instance_id "$ARTIFACTORY_INTEGRATION_ID" '.services[] | select(.ins
 docker pull "$IMAGE"
 docker tag "$IMAGE" "$IMAGEXRAY"
 docker push "$IMAGEXRAY"
-IMAGEXRAY
+
 if which save_artifact >/dev/null; then
   
   url="$(load_repo app-repo url)"
