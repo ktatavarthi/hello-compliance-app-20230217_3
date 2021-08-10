@@ -35,13 +35,13 @@ IMAGE_TAG_XRAY="eu.artifactory.swg-devops.com/wcp-compliance-automation-team-doc
 ARTIFACTORY_URL="$(jq -r .parameters.repository_url /config/artifactory)"
 ARTIFACTORY_REGISTRY="$(sed -E 's~https://(.*)/?~\1~' <<<"$ARTIFACTORY_URL")"
 ARTIFACTORY_INTEGRATION_ID="$(jq -r .instance_id /config/artifactory)"
-IMAGE="$ARTIFACTORY_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+IMAGEXRAY="$ARTIFACTORY_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 jq -j --arg instance_id "$ARTIFACTORY_INTEGRATION_ID" '.services[] | select(.instance_id == $instance_id) | .parameters.token' /toolchain/toolchain.json | docker login -u "$(jq -r '.parameters.user_id' /config/artifactory)" --password-stdin "$(jq -r '.parameters.repository_url' /config/artifactory)"
 
 docker pull "$IMAGE"
-docker tag "$IMAGE" "$IMAGE_TAG_XRAY"
-docker push "$IMAGE_TAG_XRAY"
-
+docker tag "$IMAGE" "$IMAGEXRAY"
+docker push "$IMAGEXRAY"
+IMAGEXRAY
 if which save_artifact >/dev/null; then
   
   url="$(load_repo app-repo url)"
@@ -53,5 +53,5 @@ if which save_artifact >/dev/null; then
     "digest=${DIGEST}" \
     "source=${url}.git#${sha}"
   save_artifact app-image-icr type=image "name=${IMAGE}" "digest=${DIGEST}"
-  save_artifact app-image-xray type=image "name=${IMAGE_TAG_XRAY}" "digest=${DIGEST}"
+  save_artifact app-image-xray type=image "name=${IMAGEXRAY}" "digest=${DIGEST}"
 fi
