@@ -38,7 +38,7 @@ ARTIFACTORY_INTEGRATION_ID="$(jq -r .instance_id /config/artifactory)"
 IMAGE="$ARTIFACTORY_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 jq -j --arg instance_id "$ARTIFACTORY_INTEGRATION_ID" '.services[] | select(.instance_id == $instance_id) | .parameters.token' /toolchain/toolchain.json | docker login -u "$(jq -r '.parameters.user_id' /config/artifactory)" --password-stdin "$(jq -r '.parameters.repository_url' /config/artifactory)"
 
-
+docker pull "$IMAGE"
 docker tag "$IMAGE" "$IMAGE_TAG_XRAY"
 docker push "$IMAGE_TAG_XRAY"
 
