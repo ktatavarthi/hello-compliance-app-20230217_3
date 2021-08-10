@@ -29,6 +29,11 @@ echo -n "$DIGEST" > ../image-digest
 echo -n "$IMAGE_TAG" > ../image-tags
 echo -n "$IMAGE" > ../image
 
+IMAGE_TAG_XRAY="eu.artifactory.swg-devops.com/wcp-compliance-automation-team-docker-local/""$IMAGE_NAME":"$TEMP_TAG"
+
+docker tag "$IMAGE" "$IMAGE_TAG_XRAY"
+docker push "$IMAGE_TAG_XRAY"
+
 if which save_artifact >/dev/null; then
   
   url="$(load_repo app-repo url)"
@@ -39,4 +44,6 @@ if which save_artifact >/dev/null; then
     "name=${IMAGE}" \
     "digest=${DIGEST}" \
     "source=${url}.git#${sha}"
+  save_artifact app-image-icr type=image "name=${IMAGE}" "digest=${DIGEST}"
+  save_artifact app-image-xray type=image "name=${IMAGE_TAG_XRAY}" "digest=${DIGEST}"
 fi
