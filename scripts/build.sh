@@ -35,7 +35,7 @@ IMAGE_TAG_XRAY="eu.artifactory.swg-devops.com/wcp-compliance-automation-team-doc
 ARTIFACTORY_URL="$(jq -r .parameters.repository_url /config/artifactory)"
 ARTIFACTORY_REGISTRY="$(sed -E 's~https://(.*)/?~\1~' <<<"$ARTIFACTORY_URL")"
 ARTIFACTORY_INTEGRATION_ID="$(jq -r .instance_id /config/artifactory)"
-IMAGEXRAY="$ARTIFACTORY_URL/$ARTIFACTORY_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+IMAGEXRAY="$ARTIFACTORY_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 jq -j --arg instance_id "$ARTIFACTORY_INTEGRATION_ID" '.services[] | select(.instance_id == $instance_id) | .parameters.token' /toolchain/toolchain.json | docker login -u "$(jq -r '.parameters.user_id' /config/artifactory)" --password-stdin "$(jq -r '.parameters.repository_url' /config/artifactory)"
 
 docker pull "$IMAGE"
