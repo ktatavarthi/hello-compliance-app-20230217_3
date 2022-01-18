@@ -16,6 +16,6 @@
     "acceptance-test": "jest ./acceptance-test"
   },
   "devDependencies": {
-    "axios": "^0.21.3"
+    "axios": "^0.24.0"
   }
 }
