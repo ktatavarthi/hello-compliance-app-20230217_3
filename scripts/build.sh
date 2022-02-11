@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-#cDOCKER_BUILDKIT=1 docker build $DOCKER_BUILD_ARGS .
+# shellcheck disable=SC2086
 docker build $DOCKER_BUILD_ARGS .
 docker push "${IMAGE}"
 
