@@ -1,7 +1,7 @@
 version: '1'
 
 setup:
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi@sha256:d59863621d3ba1b9bd47f76950c751e842405f9c303d0d4d4298d964b664ee85
   script: |
     #!/usr/bin/env bash
 
@@ -15,7 +15,7 @@ setup:
 
 test:
   abort_on_failure: false
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi@sha256:d59863621d3ba1b9bd47f76950c751e842405f9c303d0d4d4298d964b664ee85
   script: |
     #!/usr/bin/env bash
 
@@ -42,7 +42,7 @@ test:
 
 containerize:
   dind: true
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi@sha256:d59863621d3ba1b9bd47f76950c751e842405f9c303d0d4d4298d964b664ee85
   script: |
     #!/usr/bin/env bash
 
@@ -56,7 +56,7 @@ containerize:
     source scripts/build.sh
 
 deploy:
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
   script: |
     #!/usr/bin/env bash
 
@@ -71,7 +71,7 @@ deploy:
 
 dynamic-scan: 
   abort_on_failure: false
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
   script: |
     #!/usr/bin/env bash
 
@@ -86,7 +86,7 @@ dynamic-scan:
 
 acceptance-test:
   abort_on_failure: false
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
   script: |
     #!/usr/bin/env bash
 
@@ -114,7 +114,7 @@ acceptance-test:
 
 release:
   abort_on_failure: false
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
   script: |
     #!/usr/bin/env bash
 
@@ -123,7 +123,7 @@ release:
 owasp-zap:
   dind: true
   abort_on_failure: false
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.12@sha256:ff4053b0bca784d6d105fee1d008cfb20db206011453071e86b69ca3fde706a4
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
   script: |
     #!/usr/bin/env bash
     
