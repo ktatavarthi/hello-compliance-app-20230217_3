@@ -25,6 +25,7 @@ else
   IBMCLOUD_API_KEY="$(get_env ibmcloud-api-key)" # pragma: allowlist secret
 fi
 
+IBMCLOUD_API=$(get_env ibmcloud-api "https://cloud.ibm.com")
 HOME=/root
 IBMCLOUD_TOOLCHAIN_ID="$(jq -r .toolchain_guid /toolchain/toolchain.json)"
 IBMCLOUD_IKS_REGION="$(get_env dev-region | awk -F ":" '{print $NF}')"
@@ -45,7 +46,7 @@ else
   IBMCLOUD_IKS_REGION=$(echo "${IBMCLOUD_IKS_REGION}" | awk -F ":" '{print $NF}')
   ibmcloud config --check-version false
   retry 5 2 \
-    ibmcloud login -r "${IBMCLOUD_IKS_REGION}"
+    ibmcloud login -r "${IBMCLOUD_IKS_REGION}" -a "$IBMCLOUD_API"
 
   retry 5 2 \
     ibmcloud ks cluster config --cluster "${IBMCLOUD_IKS_CLUSTER_NAME}"
