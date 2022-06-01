@@ -60,7 +60,7 @@ if [[ -s "/config/repository" ]]; then
 else
   REPOSITORY="$(load_repo app-repo url)"
 fi
-IMAGE_NAME=$(basename $REPOSITORY .git)
+IMAGE_NAME=$(basename "$REPOSITORY" .git)
 IMAGE_TAG="$(date +%Y%m%d%H%M%S)-$(cat /config/git-branch)-$(cat /config/git-commit)"
 
 if [[ -f "/config/break_glass" ]]; then
