@@ -25,8 +25,7 @@ test:
       --asset-type "repo" \
       --asset-key "app-repo"
     cd ../"$(load_repo app-repo path)"
-    rm package-lock.json
-    npm i
+    npm ci
     # save exit code for old evidence collection
     exit_code=0
     npm test || exit_code=$?
@@ -82,8 +81,7 @@ acceptance-test:
       --asset-type "repo" \
       --asset-key "app-repo"
     source /root/.nvm/nvm.sh
-    rm package-lock.json
-    npm i
+    npm ci
     export APP_URL=$(get_env app-url)
     # save exit code for old evidence collection
     exit_code=0
