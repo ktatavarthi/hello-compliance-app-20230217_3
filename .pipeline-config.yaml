@@ -57,7 +57,7 @@ containerize:
     source scripts/build.sh
 
 deploy:
-  image: icr.io/continuous-delivery/pipeline/pipeline-base-image@sha256:c1e9d5a9674a093635c386f96d35781aea7cad6cc1da86991ee1a85c854216f8
+  image: icr.io/continuous-delivery/pipeline/pipeline-base-ubi:3.7@sha256:0444aa3cc5032ba4d7f7a59a4177dd43dc1126ad902f09079b0a66156bbe4bcf
   script: |
     #!/usr/bin/env bash
     if [[ "$PIPELINE_DEBUG" == 1 ]]; then
