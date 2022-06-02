@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck source=/dev/null
 source "${ONE_PIPELINE_PATH}"/tools/retry
 export IBMCLOUD_API_KEY
 export IBMCLOUD_TOOLCHAIN_ID
