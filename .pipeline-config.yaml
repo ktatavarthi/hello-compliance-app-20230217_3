@@ -129,7 +129,7 @@ dynamic-scan:
       if [[ "$(get_env pipeline_namespace)" == *"cc"* ]]; then
         app_url=$(get_env app-url "")
         if [[ -z "${app_url}" ]]; then
-          echo "Please provide the app-url as the running application url. Recomended to use stage/test enviroment to run the Dynamic scan." >&2
+          echo "Please provide the app-url as the running application url. Recommended to use stage/test environment to run the Dynamic scan." >&2
           exit 1
         fi
         source scripts/zap/zap-cc-config
